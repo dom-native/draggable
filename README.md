@@ -14,8 +14,8 @@
 - Fully delegatable, meaning the API does not need to bind each individual draggable element, but bind to the container with a selector for the elements (e.g., `draggable(rootEl, '.drag-me')`)
 - No `evt.dataTransfer` but a `evt.detail` with all usefull context such as `.source, .ghost, .droppable, .over, .pointerEvent, .data, .originX, originY, ...` to build simple to advanced behavior.
 - Common behavior such as moving the draggable with `position` or `translate` and ghost/clone builtin. 
-  - Implement a global drag and drop is one line 
-    - `draggable(document, '.draggable', { drag: 'ghost' })`;
+- Implement a global drag and drop with one line 
+  - `draggable(document, '.draggable', { drag: 'ghost' })`;
 - Can be bound at the top level with `draggable(rootEl, selector, controller?)` 
 - or activated on `pointerdown` with `activateDrag(sourceEl, pointerEvent, controller?)` for finer activation control.
 
