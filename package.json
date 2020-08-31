@@ -18,7 +18,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@dom-native/demo-infra": "0.0.0-internal-1",
+    "@dom-native/demo-infra": "0.0.0-internal-2",
     "cmdrouter": "^0.3.1",
     "dom-native": "^0.9.9",
     "ts-node": "^9.0.0",
