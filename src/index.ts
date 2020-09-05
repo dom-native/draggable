@@ -55,6 +55,12 @@ interface OnDragController {
 
 export interface DragController extends OnDragController {
 
+	/**
+	 * The setPointerCapture target (by default source but can be overriden)
+	 * Note: To receive pointerevent this element must be attached to the document
+	 */
+	captureTarget?: HTMLElement,
+
 	data?: any;
 
 	/** The dragMode which defined which element to drag */
@@ -216,6 +222,7 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 
 	//// for drag events
 	const source = src;
+	const captureTarget = ctlr.captureTarget ?? source;
 	const sourceOriginRect = source.getBoundingClientRect();;
 	const sourceOriginTransform = transform(source);
 
@@ -270,12 +277,12 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 
 	//// bind events
 	// send all further pointer event from this pointerId to source (until pointerup/cancel)
-	source.setPointerCapture(pointerId);
+	captureTarget.setPointerCapture(pointerId);
 
 	const eventNs = `${pointerId}`; // namespacing the event for simpler removal
-	on(source, 'pointermove', processMove, { ns: eventNs });
-	on(source, 'pointerup', processEnd, { ns: eventNs });
-	on(source, 'pointercancel', processEnd, { ns: eventNs });
+	on(captureTarget, 'pointermove', processMove, { ns: eventNs });
+	on(captureTarget, 'pointerup', processEnd, { ns: eventNs });
+	on(captureTarget, 'pointercancel', processEnd, { ns: eventNs });
 
 	//// mutable states
 	let currentDroppable: HTMLElement | undefined;
@@ -511,7 +518,7 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 				deactuateDroppable(droppable);
 
 				// remove all of the event binding
-				off(source, { ns: eventNs });
+				off(captureTarget, { ns: eventNs });
 			}
 
 		}
