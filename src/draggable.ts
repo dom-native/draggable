@@ -272,6 +272,9 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 			: DRAG_MODE_TRANSLATE;
 	const ghostDeleteOnEnd = ctlr.ghost?.deleteOnEnd ?? true;
 	const dispatchDragoverEvent = ctlr.dragover ?? false;
+
+	// SAFARI - does not turn off the userSelect on drag and prevent default (and does not support standard userSelect)
+	const originBodyWebkitUserSelect = document.body.style.webkitUserSelect;
 	//#endregion ---------- /Initial States ---------- 
 
 
@@ -354,7 +357,11 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 		//#region    ---------- Process Drag ---------- 
 
 		if (dragActive) {
+			// SAFARI - to prevent select on drag
+			document.body.style.webkitUserSelect = 'none';
+
 			pointerEvent.preventDefault(); // TODO: check if se still need this (works as it for pc / mobile)
+			pointerEvent.cancelBubble = true;
 
 			// get the handle below
 			const over = findBelow(clientX, clientY, dragEl);
@@ -510,6 +517,10 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 		cleanup();
 
 		function cleanup() {
+			// reset body
+			// SAFARI
+			document.body.style.webkitUserSelect = originBodyWebkitUserSelect;
+
 			// We remove the dragHandle
 			if (ghostDeleteOnEnd) {
 				ghost?.remove();
