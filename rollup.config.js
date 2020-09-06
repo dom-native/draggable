@@ -20,7 +20,5 @@ export default [{
 		rollup_ts({
 			tsconfig: './demo/tsconfig.json'
 		})]
-}
-
-]
+}]
 

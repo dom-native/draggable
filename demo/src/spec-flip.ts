@@ -43,10 +43,12 @@ function enableDrag(rootEl: HTMLElement) {
 		let currentOverPanel: PanelElement | undefined;
 		let animationHappening = false;
 
+
 		activateDrag(panel, pointerDownEvt, {
-			// NOTE - the pointerCapture cannot be source (the default) since it will be re-attached causing a cancel
+			// NOTE 1 - the pointerCapture cannot be source (the default) since it will be re-attached causing a cancel
 			//        @dom-native/draggable allows to set a custom pointerCapture
-			pointerCapture: rootEl,
+			// NOTE 2 - user roolEl might have some significant performance impact on mobile devices (e.g.,, mobile safari). document.body shortest event path
+			pointerCapture: document.body,
 
 			// we will still drag the ghost (here could be 'none' as well)
 			drag: 'ghost',
@@ -62,6 +64,8 @@ function enableDrag(rootEl: HTMLElement) {
 			}, // /onDragStart
 
 			onDrag: async (evt) => {
+				// if ((<any>evt) != 12) return;
+
 				const { over } = evt.detail;
 				let overPanel: PanelElement | undefined;
 

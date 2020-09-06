@@ -5,7 +5,8 @@ export function capture(els: HTMLElement[]) {
 	const originRects: DOMRect[] = els.map(el => el.getBoundingClientRect());
 
 	return function invert() {
-		// NOTE: At this point, we assume the els have the target destination
+
+		// NOTE: At this point, we assume the els are at the target destination
 		for (let i = 0; i < els.length; i++) {
 			const originRect = originRects[i];
 			const el = els[i];
@@ -39,7 +40,5 @@ export function capture(els: HTMLElement[]) {
 		}
 
 	}
-
-
 
 }

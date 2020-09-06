@@ -23,7 +23,7 @@
 		// Definitely wants sourcemapp
 		"sourceMap": true, /* Generates corresponding '.map' file. */
 
-		"outDir": "../~out-scripts/", /* Redirect output structure to the directory. */
+		"outDir": "./.out/", /* Redirect output structure to the directory. */
 
 		// Needed to call import default (replaces allowSyntheticDefaultImports)
 		"esModuleInterop": true
