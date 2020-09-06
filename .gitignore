@@ -14,6 +14,9 @@ vdev-buckets.yaml
 node_modules/
 npm-debug.log
 
+# generated file
+demo/src/_codes.ts
+
 # Safety net
 *.map
 *.jpeg
