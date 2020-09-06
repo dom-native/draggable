@@ -1,6 +1,6 @@
 {
   "name": "@dom-native/draggable",
-  "version": "0.1.1-SNAPSHOT",
+  "version": "0.1.1-SNAPSHOT-1",
   "description": "Minimalist and expressive API for dragging element based on PointerEvent (with drop, clone/ghost, tanslate or position support, and more).",
   "main": "dist/index.js",
   "repository": {
