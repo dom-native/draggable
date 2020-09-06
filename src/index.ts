@@ -478,6 +478,7 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 	}
 
 	function processEnd(pointerEvent: PointerEvent) {
+
 		// IMPORTANT - make sure we process only the event from the start pointerId 
 		//             (if does not match, it's ok, it means it is another drag session on the same source and it will be processed by the corresponding binding)
 		if (pointerId != pointerEvent.pointerId) {
@@ -497,32 +498,35 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 				if (droppable) {
 					triggerDropEvent('DROP', makeDragEventDetail({ pointerEvent, over, droppable }), ctlr);
 				}
+				deactuateDroppable(droppable);
 			}
 
 			//// DRAGEND
 			triggerDragEvent('DRAGEND', makeDragEventDetail({ pointerEvent, over, droppable }), ctlr);
+		}
 
-			// TODO: need to have a way to allow the event to set if the ghost should be remove or not.
-			cleanup();
+		// TODO: need to have a way to allow the event to set if the ghost should be remove or not.
+		cleanup();
 
-			function cleanup() {
-				// We remove the dragHandle
-				if (ghostDeleteOnEnd) {
-					ghost?.remove();
-				}
-
-				// regarless, cleanup the droppable(s) without triggering DRAGLEAVE event as it should not be fired in this case.
-				document.body.classList.remove('drag-cursor');
-				source.classList.remove('drag-source');
-				deactuateDroppable(currentDroppable);
-				deactuateDroppable(droppable);
-
-				// remove all of the event binding
-				off(captureTarget, { ns: eventNs });
+		function cleanup() {
+			// We remove the dragHandle
+			if (ghostDeleteOnEnd) {
+				ghost?.remove();
 			}
 
+			// regarless, cleanup the droppable(s) without triggering DRAGLEAVE event as it should not be fired in this case.
+			document.body.classList.remove('drag-cursor');
+			source.classList.remove('drag-source');
+			deactuateDroppable(currentDroppable);
+
+
+			// remove all of the event binding
+			off(captureTarget, { ns: eventNs });
+			console.log('->> processEnd', source === captureTarget, eventNs);
 		}
+
 	}
+
 	//#endregion ---------- /Process End ---------- 
 }
 

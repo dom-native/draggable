@@ -16,15 +16,21 @@
     "DOM",
     "Drag and Drop"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "vdev": "^0.12.3"
+  },
   "devDependencies": {
     "@dom-native/demo-infra": "0.0.0-internal-2",
     "cmdrouter": "^0.3.1",
     "dom-native": "^0.9.9",
+    "postcss": "^7.0.32",
+    "postcss-cli": "^7.1.2",
+    "postcss-import": "^12.0.1",
+    "postcss-mixins": "^6.2.3",
+    "postcss-nested": "^4.2.3",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.1",
-    "typescript": "^4.0.2",
-    "vdev": "^0.12.1"
+    "typescript": "^4.0.2"
   },
   "peerDependencies": {
     "dom-native": "^0.9.9"
