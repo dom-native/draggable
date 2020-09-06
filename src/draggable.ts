@@ -60,7 +60,7 @@ export interface DragController extends OnDragController {
 	 * The setPointerCapture target (by default source but can be overriden)
 	 * Note: To receive pointerevent this element must be attached to the document
 	 */
-	captureTarget?: HTMLElement,
+	pointerCapture?: HTMLElement,
 
 	data?: any;
 
@@ -223,7 +223,7 @@ export function activateDrag(src: HTMLElement, evt: PointerEvent, controller?: D
 
 	//// for drag events
 	const source = src;
-	const captureTarget = ctlr.captureTarget ?? source;
+	const captureTarget = ctlr.pointerCapture ?? source;
 	const sourceOriginRect = source.getBoundingClientRect();;
 	const sourceOriginTransform = transform(source);
 

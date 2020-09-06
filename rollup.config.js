@@ -7,9 +7,9 @@ import rollup_ts from 'rollup-plugin-typescript2';
 
 
 export default [{
-	input: './demo/src/index.ts',
+	input: './demo/src/*.ts',
 	output: {
-		file: './dist/app-bundle.js',
+		file: './demo/dist/demo-bundle.js',
 		format: 'iife',
 		name: 'bundle'
 	},
@@ -17,7 +17,9 @@ export default [{
 		rollup_multi(),
 		rollup_cjs(),
 		rollup_re(),
-		rollup_ts()]
+		rollup_ts({
+			tsconfig: './demo/tsconfig.json'
+		})]
 }
 
 ]

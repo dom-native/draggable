@@ -1,6 +1,6 @@
 {
   "name": "@dom-native/draggable",
-  "version": "0.1.1-SNAPSHOT-1",
+  "version": "0.1.1-SNAPSHOT-3",
   "description": "Minimalist and expressive API for dragging element based on PointerEvent (with drop, clone/ghost, tanslate or position support, and more).",
   "main": "dist/index.js",
   "repository": {
@@ -16,13 +16,14 @@
     "DOM",
     "Drag and Drop"
   ],
-  "dependencies": {
-    "vdev": "^0.12.3"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@dom-native/demo-infra": "0.0.0-internal-2",
+    "@dom-native/demo-infra": "0.0.0-internal-3",
+    "@types/lodash.debounce": "^4.0.6",
+    "chokidar": "^3.4.2",
     "cmdrouter": "^0.3.1",
-    "dom-native": "^0.9.9",
+    "dom-native": "^0.9.10-SNAPSHOT-3",
+    "lodash.debounce": "^4.0.8",
     "postcss": "^7.0.32",
     "postcss-cli": "^7.1.2",
     "postcss-import": "^12.0.1",
@@ -30,7 +31,8 @@
     "postcss-nested": "^4.2.3",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "vdev": "^0.12.3"
   },
   "peerDependencies": {
     "dom-native": "^0.9.9"
@@ -40,7 +42,9 @@
     "dist/"
   ],
   "scripts": {
-    "prepack": "node ./node_modules/.bin/tsc",
+    "prepack": "TS_NODE_FILES=true ./node_modules/.bin/ts-node --project scripts/tsconfig.json  scripts/cmds.ts build",
+    "build-demo-js": "./node_modules/.bin/rollup -c",
+    "build-demo-css": "./node_modules/.bin/postcss -o demo/dist/demo-bundle.css  demo/pcss/main.pcss",
     "watch": "TS_NODE_FILES=true ./node_modules/.bin/ts-node --project scripts/tsconfig.json  scripts/cmds.ts watch",
     "site": "./node_modules/.bin/vdev sup demo/ jc-sites:dom-native/demo/draggable/"
   },
