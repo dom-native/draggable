@@ -1,6 +1,6 @@
 {
   "name": "@dom-native/draggable",
-  "version": "0.1.1-SNAPSHOT-3",
+  "version": "0.1.1",
   "description": "Minimalist and expressive API for dragging, positioning, and 'FLIP - capture/invert/play'",
   "main": "dist/index.js",
   "repository": {
@@ -28,7 +28,7 @@
     "chokidar": "^3.4.2",
     "cloud-bucket": "^0.3.7",
     "cmdrouter": "^0.3.1",
-    "dom-native": "^0.9.10-SNAPSHOT-3",
+    "dom-native": "^0.9.10",
     "fs-extra-plus": "^0.5.19",
     "js-yaml": "^3.14.0",
     "lodash.debounce": "^4.0.8",
@@ -45,7 +45,7 @@
     "typescript": "^4.0.2"
   },
   "peerDependencies": {
-    "dom-native": "^0.9.9"
+    "dom-native": "^0.9.10"
   },
   "files": [
     "src/",
