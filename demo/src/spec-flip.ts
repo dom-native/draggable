@@ -46,8 +46,9 @@ function enableDrag(rootEl: HTMLElement) {
 
 		activateDrag(panel, pointerDownEvt, {
 			// NOTE 1 - the pointerCapture cannot be source (the default) since it will be re-attached causing a cancel
-			//        @dom-native/draggable allows to set a custom pointerCapture
-			// NOTE 2 - user roolEl might have some significant performance impact on mobile devices (e.g.,, mobile safari). document.body shortest event path
+			//          @dom-native/draggable allows to set a custom pointerCapture
+			// NOTE 2 - binding pointerCapture roolEl might have some significant performance impact on mobile devices (e.g.,, mobile safari). 
+			//          document.body shortest event path, and provides sensible performance gain on ipad. 
 			pointerCapture: document.body,
 
 			// we will still drag the ghost (here could be 'none' as well)
@@ -64,42 +65,53 @@ function enableDrag(rootEl: HTMLElement) {
 			}, // /onDragStart
 
 			onDrag: async (evt) => {
-				// if ((<any>evt) != 12) return;
 
-				const { over } = evt.detail;
-				let overPanel: PanelElement | undefined;
+				// only proceed if no animation happening
+				if (!animationHappening) {
+					const { over } = evt.detail;
 
-				// work further only if over changed (and the over is not self)
-				if (over != panel && over != currentOver) {
-					// get the c-panel from the over
-					overPanel = closest(over, 'c-panel') as PanelElement ?? undefined;
+					// work further only if over has changed, that over is not self, and no pending animation
+					if (over != panel && over != currentOver) {
+						let overPanel: PanelElement | undefined;
+						// get the c-panel from the over
+						overPanel = (over instanceof PanelElement) ? over : closest(over, 'c-panel') as PanelElement ?? undefined;
 
-					// only perform next animation if no animation and the overPanel has changed
-					if (!animationHappening && overPanel != null && overPanel != currentOverPanel) {
-						animationHappening = true;
+						// only perform animation overPanel is different
+						if (overPanel != null && overPanel != currentOverPanel) {
+							animationHappening = true;
 
-						//// not-so-magic FLIP
-						// 1) capture the panel positions
-						const inv = capture(all(rootEl, 'c-panel'));
+							//// not-so-magic FLIP
+							// 1) capture the panel positions
+							const inv = capture(all(rootEl, 'c-panel'));
 
-						// 2) move the panel
-						const pos = panel.col.isBefore(panel, overPanel) ? 'after' : 'before';
-						append(overPanel, panel, pos);
+							// 2) move the panel
+							const pos = panel.col.isBefore(panel, overPanel) ? 'after' : 'before';
+							append(overPanel, panel, pos);
 
-						// 3) inver the position (pretend nothing happen)
-						const play = inv();
+							// 3) inver the position (pretend nothing happen)
+							const play = inv();
 
-						// 4) play the animation (got to love closure state capture)
-						await play();
+							// 4) play the animation (got to love closure state capture)
+							await play();
 
-						// Now we are done (play return a promise when the animation is done - approximation -)
-						animationHappening = false;
+							// Now we are done (play return a promise when the animation is done - approximation -)
+							animationHappening = false;
+							// reset the currents (in case user follow the moved item)
+							currentOverPanel = undefined;
+							currentOver = undefined;
+						} else {
+							// update state for the next onDrag
+							currentOverPanel = overPanel;
+							currentOver = over;
+						}
+
+
+
 					}
 
-					// update state for the next onDrag
-					currentOverPanel = overPanel;
-					currentOver = over;
+
 				}
+
 			}// /onDrag
 		}); // /activateDrag
 
