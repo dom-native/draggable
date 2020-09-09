@@ -39,6 +39,7 @@ function enableDrag(rootEl: HTMLElement) {
 	on(rootEl, 'pointerdown', 'c-panel', (pointerDownEvt) => {
 		const panel = pointerDownEvt.selectTarget as PanelElement;
 
+		// states
 		let currentOver: HTMLElement | undefined;
 		let currentOverPanel: PanelElement | undefined;
 		let animationHappening = false;
@@ -62,7 +63,7 @@ function enableDrag(rootEl: HTMLElement) {
 					opacity: '.5',
 					background: 'red'
 				});
-			}, // /onDragStart
+			},
 
 			onDrag: async (evt) => {
 
@@ -70,7 +71,7 @@ function enableDrag(rootEl: HTMLElement) {
 				if (!animationHappening) {
 					const { over } = evt.detail;
 
-					// work further only if over has changed, that over is not self, and no pending animation
+					// work further only if over has changed, that over is not self
 					if (over != panel && over != currentOver) {
 						let overPanel: PanelElement | undefined;
 						// get the c-panel from the over
@@ -88,7 +89,7 @@ function enableDrag(rootEl: HTMLElement) {
 							const pos = panel.col.isBefore(panel, overPanel) ? 'after' : 'before';
 							append(overPanel, panel, pos);
 
-							// 3) inver the position (pretend nothing happen)
+							// 3) invert the position (pretend nothing happen)
 							const play = inv();
 
 							// 4) play the animation (got to love closure state capture)
@@ -105,14 +106,11 @@ function enableDrag(rootEl: HTMLElement) {
 							currentOver = over;
 						}
 
-
-
 					}
-
-
 				}
 
 			}// /onDrag
+
 		}); // /activateDrag
 
 

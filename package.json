@@ -1,6 +1,6 @@
 {
   "name": "@dom-native/draggable",
-  "version": "0.1.1",
+  "version": "0.1.2-SNAPSHOT",
   "description": "Minimalist and expressive API for dragging, positioning, and 'FLIP - capture/invert/play'",
   "main": "dist/index.js",
   "repository": {
