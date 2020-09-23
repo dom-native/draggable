@@ -17,13 +17,13 @@ type Pos = HPos | VPos;
 export type PositionOptions = HLoc | VLoc | Pos & { gap?: number }
 
 
-export function position(el: HTMLElement, refEl: HTMLElement, opts: PositionOptions) {
+export function position(elToPosition: HTMLElement, refEl: HTMLElement, opts: PositionOptions) {
 
 	const { type, pos, gap } = parseOptions(opts);
 
 	const top_left: { top: number, left: number } = { top: -1, left: -1 };
 
-	const { width: elWidth, height: elHeight } = el.getBoundingClientRect();
+	const { width: elWidth, height: elHeight } = elToPosition.getBoundingClientRect();
 
 	const { top: refTop, left: refLeft, right: refRight, bottom: refBottom, width: refWidth, height: refHeight } = refEl.getBoundingClientRect();
 
@@ -87,7 +87,7 @@ export function position(el: HTMLElement, refEl: HTMLElement, opts: PositionOpti
 		top_left.top -= (top_left.top + elHeight + 8 - window.innerHeight);
 	}
 
-	style(el, { top: (top_left.top + scrollY) + 'px', left: (top_left.left + scrollX) + 'px' });
+	style(elToPosition, { top: (top_left.top + scrollY) + 'px', left: (top_left.left + scrollX) + 'px' });
 }
 
 
