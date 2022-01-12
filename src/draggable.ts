@@ -1,5 +1,5 @@
 import { closest, off, on, style } from 'dom-native';
-import { clamp, findBelow, transform, Transform } from './utils';
+import { clamp, findBelow, transform, Transform } from './utils.js';
 
 /////////
 // events (inspired from https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)

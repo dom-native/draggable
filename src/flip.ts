@@ -15,7 +15,7 @@ export function capture(els: HTMLElement[]) {
 		}
 
 		return function play(duration = 500) {
-			return new Promise((res, rej) => {
+			return new Promise((res: Function, rej) => {
 				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
 						for (const el of els) {

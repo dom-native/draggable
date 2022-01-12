@@ -2,7 +2,7 @@
 import { router } from 'cmdrouter';
 import { saferRemove } from 'fs-extra-plus';
 import { spawn } from 'p-spawn';
-import { buildDemoCode, uploadSite } from './helpers';
+import { buildDemoCode, uploadSite } from './helpers.js';
 
 
 router({ build, watch, site }).route();

@@ -1,9 +1,10 @@
 import chokidar from 'chokidar';
 import { Bucket, getBucket } from 'cloud-bucket';
-import { glob, pathExists, readFile, writeFile } from 'fs-extra-plus';
+import { glob } from 'fs-extra-plus';
 import * as jsyaml from 'js-yaml';
 import debounce from 'lodash.debounce';
 import * as Path from 'path';
+const { pathExists, readFile, writeFile } = (await import("fs-extra")).default;
 
 //#region    ---------- site ---------- 
 
@@ -30,7 +31,7 @@ async function loadBucket(bucketName: string): Promise<Bucket> {
 		throw new Error(`ERROR - loadBucket - cannot find file '${fileName}' is the root or 3 parent directories`)
 	}
 
-	const yamlObj = await yaml(content);
+	const yamlObj: any = await yaml(content);
 	const bucketConfig = yamlObj.buckets?.[bucketName];
 
 	if (bucketConfig == null) {
