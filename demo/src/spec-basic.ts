@@ -1,5 +1,5 @@
 import { CodeDoc, SpecView } from '@dom-native/demo-infra';
-import { customElement } from 'dom-native';
+import { BaseHTMLElement, customElement } from 'dom-native';
 import { draggable } from '../../src';
 
 

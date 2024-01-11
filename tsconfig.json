@@ -30,8 +30,6 @@
 		"outDir": "./dist/", /* Redirect output structure to the directory. */
 
 		
-		"experimentalDecorators": true,
-
 		// Needed to call import default (replaces allowSyntheticDefaultImports)
 		"esModuleInterop": true
 	},

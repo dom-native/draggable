@@ -1,5 +1,5 @@
 import { CodeDoc, SpecView } from '@dom-native/demo-infra';
-import { customElement, first, on, OnEvent } from 'dom-native';
+import { OnEvent, customElement, first, on } from 'dom-native';
 import { DragEventDetail, draggable } from '../../src';
 
 

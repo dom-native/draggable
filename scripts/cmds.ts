@@ -20,9 +20,9 @@ async function watch() {
 	// generate first to have the ts able to compile
 	await buildDemoCode(false);
 	spawn('npm', ['run', 'build-demo-js', '--', '-w']);
-	spawn('npm', ['run', 'build-demo-css', '--', '-w', '--verbose']);
+	spawn('npm', ['run', 'pcss', '--', '-w']);
 
-	buildDemoCode(true);
+	await buildDemoCode(true);
 }
 
 
